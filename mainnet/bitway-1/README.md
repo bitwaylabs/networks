@@ -1,6 +1,6 @@
 *** Important ***  
 
-This document is incomplete and will be completed before 10:00 AM UTC on August 19, 2025.
+This document is incomplete and will be completed before 9:00 AM UTC on September 4, 2025.
 
 If you are upgrading from sidechain-1, please make sure that your validator pubkey does not change and just use the old priv_validator_key.json file to run the Bitway node.
 

@@ -1,13 +1,17 @@
 
-# Bitway Upgrade Notice (Mainnet)
+# Bitway Upgrade Announcement (Mainnet)
 
-We will stop running sidechain-1 and prepare to start the upgrade to bitway-1.
-The upgrade contents are as follows:
+## We plan to launch the upgraded mainnet at the following time:
 
- 1. We have rebranded, the chain ID has been changed to bitway-1, and the address prefix has been changed to bitway.
- 2. All on-chain data, including accounts, assets, validators, delegations, rewards, etc., will be retained.
- 3. The native SIDE assets will be updated to BTW assets, and the quantity remains unchanged.
+Thursday, September 4, 2025, 15:00 UTC.
 
-Please follow the steps below to complete the upgrade process:
- 1. At the upgrade height (3098000, Estimated Time: 2025/8/18 10:00:00 UTC), stop the sidechain-1 node, data after this height will be discarded.
- 2. The new chain will be launched at 10:00:00 UTC on August 19, 2025. Please follow this instruction document to start the new chain node. https://github.com/bitwaylabs/networks/blob/main/mainnet/bitway-1/README.md.
+## The upgrade contents are as follows:
+
+ 1. We have rebranded from SIDE to BITWAY，the chain ID has been changed to bitway-1.
+ 2. We launched a new product, a Bitcoin-based lending protocol.
+
+## Please follow the steps below to complete the upgrade process:
+
+ 1. We have provided an pre genesis file, please download it and check your account balance. https://media.githubusercontent.com/media/bitwaylabs/networks/refs/heads/main/mainnet/bitway-1/pre_genesis.tar.gz
+
+ 2. At least 6 hours before the launch time, we will provide the final genesis file. Please follow the instruction document to start the new chain node. https://github.com/bitwaylabs/networks/blob/main/mainnet/bitway-1/README.md.
