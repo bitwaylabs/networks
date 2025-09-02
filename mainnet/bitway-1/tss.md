@@ -39,113 +39,294 @@ At the same time, the bridge related transactions including deposit and withdraw
 
 ## Get started
 
-### Build from source
+### Build shuttler
 
 1. Install *Rust*
 
-```
+```sh
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
-2. Clone and build
+2. Check Cargo Version
 
+```sh
+cargo version
 ```
+
+Make sure the cargo version is 1.89.0 or later.  
+You can upgrade the cargo version using the following command:
+
+```sh
+rustup self update
+rustup update stable
+```
+
+3. Clone and build shuttler
+
+```sh
 git clone https://github.com/bitwaylabs/shuttler.git
 cd shuttler
-git checkout v2.0.0-rc2
+git checkout v2.0.0
 cargo build --release
 ```
 
-The binary can be placed into the bin directory of Cargo for convenience.
+4. The binary can be placed into the bin directory of Cargo for convenience.
 
-```
+```sh
 cp target/release/shuttler ~/.cargo/bin
 ```
 
-### Configure
+## Upgrading from sidechain-1
 
-#### 1. Initialize
-*** Notes ***  
-```
-shuttler --home ~/.shuttler init
-```
-The *home* directory can be replaced by your choice.  
-You can specify the port by `--port`. The default port is `5158`.
+If you are upgrading from sidechain-1, please follow the steps below:
 
-#### 2. Set the bootstrapping nodes
+1. Reuse the old data directory
 
-```sh
-vi ~/.shuttler/config.toml
-bootstrap_nodes = ["<peer address>",...,"<peer address>"]
-```
+   ```sh
+   By default, it is "~/.shuttler".
+   ```
 
-The bootstrapping nodes are used to help connect to the TSS network when started.
-The format of the peer address is like this:
-```
-/ip4/<IP>/tcp/<PORT>/p2p/<PEER ID>
-```
+   > This directory contains old dkg data, which is very important. Please do not lose or overwrite it.
 
-Your `peer id` can be retrieved as the following command:
-```
-shuttler --home <home> address
-```
-Please share your node address in the private channel so others can add you. and make sure to add at least 3 bootstrap nodes in your Shuttler config.
+2. Generate a new configuration file
 
-The seed node provided by Bitway Labs is as following:
-```
-[To be added]
-```
+   ```sh
+   target/release/shuttler --home ~/.shuttler_new init
+   ```
 
-#### 3. Set the Bitway gRPC
-```
-[bitway]
-grpc = "<gprc address>"
-```
-If you run own Bitway node on the same server, the item can be set to `http://localhost:9090`. The value can be configured by the actual deployment or set to the public Bitway node which provides the gRPC server.
+   > Note that the file path generated above is different from the old path.
 
-#### 4. Set the Bitcoin RPC
-```
-[bitcoin]
-network = "<network name>"
-rpc = "<rpc endpoint>"
-user = "<rpc username>"
-password = "<rpc password>"
-```
+3. Copy the new configuration file
 
-For signers and relayers, the bitcoin node rpc is required to send the signed transactions or sync the bitcoin block headers and the bridge related transactions to the Bitway.
-The TSS node operator can deploy own bitcoin node or use the third-party server provider by demand.
-The public bitcoin node information provided by Bitway Labs is as follows:
-```
-network = "bitcoin"
-rpc = "http://192.248.180.245:8332"
-user = "bitway"
-password = "12345678"
-```
-**_Note_**: The `--txindex` is required to be set when starting the Bitcoin node as following:
+   Backup your old configuration file.
 
-```
-bitcoind -txindex -rpcuser=<user> --rpcpassword=<password>
-```
+   ```sh
+   mv ~/.shuttler/config.toml ~/.shuttler/config_old.toml
+   ```
 
-### Fund the relayer address
-The relayer(Bitway transaction sender) address can be viewed by the following command:
-```
-shuttler --home <home> address
-```
-**Note**: Before starting the TSS node, the relayer address needs to be funded for sending the transactions to the Bitway.
+   Copy the new configuration file.
 
-### Start TSSigner
+   ```sh
+   cp ~/.shuttler_new/config.toml ~/.shuttler/config.toml
+   ```
 
-*** Notes ***  
-Start TSS:
-```
-shuttler --home <home> start --bridge --lending
-```
-  
+4. Set up the new config file to reuse the old validator key
+
+   ```sh
+   vi ~/.shuttler/config.toml
+   ```
+
+   Modify the following content:
+
+   ```sh
+   priv_validator_key_path = "/home/linuxuser/.bitway/config/priv_validator_key.json"
+   ```
+
+   And make sure Bitway uses the sidechain's old validator key.
+
+5. Set up the bootstrapping nodes
+
+   ```sh
+   vi ~/.shuttler/config.toml
+   bootstrap_nodes = ["<peer address>",...,"<peer address>"]
+   ```
+
+   The bootstrapping nodes are used to help connect to the TSS network when started.
+   The format of the peer address is like this:
+
+   ```sh
+   /ip4/<IP>/tcp/<PORT>/p2p/<PEER ID>
+   ```
+
+   Your `peer id` can be retrieved as the following command:
+
+   ```sh
+   shuttler address
+   ```
+
+   > Please share your node address in the private channel so others can add you. and make sure to add at least 3 bootstrap nodes in your Shuttler config.  
+   > The seed node provided by Bitway Labs is as following:
+
+   ```sh
+   /ip4/202.182.119.24/tcp/5158/p2p/12D3KooWJsCsfBUcm9yZvqbbCZ2eg8vY6Wgw2qxsafzfHNuSRhzB
+   ```
+
+6. Enable the rpc service.
+
+   ```sh
+   enable_rpc = true
+   rpc_address = "127.0.0.1:6780"
+   ```
+
+   Enable the rpc service, then you can visit the metrics as follow:
+
+   ```sh
+   curl http://127.0.0.1:6780/metrics
+   ```
+
+7. Set the Bitcoin RPC
+
+   ```sh
+   [bitcoin]
+   network = "bitcoin"
+   rpc = "http://192.248.180.245:8332"
+   user = "bitway"
+   password = "12345678"
+   ```
+
+   > You can replace it with your own bitcoin information.
+
+8. Set the Bitway RPC
+
+   ```sh
+   [bitway]
+   grpc = "http://localhost:9090"
+   rpc = "http://localhost:26657"
+   gas = 1000000
+   ```
+
+   > If you run own Bitway node on the same server, Keep the above configuration.
+
+9. Set the Bitway fee
+
+   ```sh
+   [bitway.fee]
+   amount = 1000
+   denom = "ubtw"
+   ```
+
+1. Modify the last scanned height.
+
+   ```sh
+   last_scanned_height_bitway = 3226000
+   last_scanned_height_bitcoin = 912840
+   ```
+
+1. Start shuttler
+
+   ```sh
+   target/release/shuttler start --bridge --lending
+   ```
+
+1. Submit relayer address to Bitway Labs
+
+   ```sh
+   target/release/shuttler address
+   ```
+
+   > Get the relayer address as above, and send it to us in TG group.
+   > We will add this address to the list of gas payments.
+
+## Start a new shuttler
+
+If you are upgrading from sidechain, please refer to the upgrade instructions above.  
+The following instructions are for starting a new shuttle program.
+
+1. Initialize
+
+   ```sh
+   target/release/shuttler init
+   ```
+
+   > The *home* directory can be replaced by your choice.  
+   > You can specify the port by `--port`. The default port is `5158`.
+
+2. Set up the bootstrapping nodes
+
+   ```sh
+   vi ~/.shuttler/config.toml
+   bootstrap_nodes = ["<peer address>",...,"<peer address>"]
+   ```
+
+   The bootstrapping nodes are used to help connect to the TSS network when started.
+   The format of the peer address is like this:
+
+   ```sh
+   /ip4/<IP>/tcp/<PORT>/p2p/<PEER ID>
+   ```
+
+   Your `peer id` can be retrieved as the following command:
+
+   ```sh
+   shuttler address
+   ```
+
+   > Please share your node address in the private channel so others can add you. and make sure to add at least 3 bootstrap nodes in your Shuttler config.  
+   > The seed node provided by Bitway Labs is as following:
+
+   ```sh
+   /ip4/202.182.119.24/tcp/5158/p2p/12D3KooWJsCsfBUcm9yZvqbbCZ2eg8vY6Wgw2qxsafzfHNuSRhzB
+   ```
+
+3. Enable the rpc service.
+
+   ```sh
+   enable_rpc = true
+   rpc_address = "127.0.0.1:6780"
+   ```
+
+   Enable the rpc service, then you can visit the metrics as follow:
+
+   ```sh
+   curl http://127.0.0.1:6780/metrics
+   ```
+
+4. Set the Bitcoin RPC
+
+   ```sh
+   [bitcoin]
+   network = "bitcoin"
+   rpc = "http://192.248.180.245:8332"
+   user = "bitway"
+   password = "12345678"
+   ```
+
+   > You can replace it with your own bitcoin information.
+
+5. Set the Bitway RPC
+
+   ```sh
+   [bitway]
+   grpc = "http://localhost:9090"
+   rpc = "http://localhost:26657"
+   gas = 1000000
+   ```
+
+   > If you run own Bitway node on the same server, Keep the above configuration.
+
+6. Set the Bitway fee
+
+   ```sh
+   [bitway.fee]
+   amount = 1000
+   denom = "ubtw"
+   ```
+
+7. Modify the last scanned height.
+
+   ```sh
+   last_scanned_height_bitway = 3226000
+   last_scanned_height_bitcoin = 912840
+   ```
+
+8. Start shuttler
+
+   ```sh
+   target/release/shuttler start --bridge --lending
+   ```
+
+9. Submit relayer address to Bitway Labs
+
+   ```sh
+   target/release/shuttler address
+   ```
+
+   > Get the relayer address as above, and send it to us in TG group.
+   > We will add this address to the list of gas payments.
   
 # Hardware Specifications
 
-#### Running only the TSS node
+## Running only the TSS node
 
 1. Minimum Requirements
 
@@ -167,7 +348,7 @@ shuttler --home <home> start --bridge --lending
 
    - Network: 1 Gbps
 
-#### Running only the Bitcoin Testnet3 full node
+## Running only the Bitcoin full node
 
 1. Minimum Requirements
 
@@ -189,7 +370,7 @@ shuttler --home <home> start --bridge --lending
 
    - Network: 1 Gbps
 
-#### Running both the TSS node and Bitcoin Testnet3 full node
+## Running both the TSS node and Bitcoin full node
 
 1. Minimum Requirements
 

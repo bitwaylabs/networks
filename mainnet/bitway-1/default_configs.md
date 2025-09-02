@@ -21,7 +21,7 @@
     bitcoin_rpc_password = "12345678"
     http_post_mode = true
     disable_tls = true
-    # Please replace it with your own bitcoin testnet information
+    # Please replace it with your own bitcoin information
     ...
 
     # Keep other parameters as default.
