@@ -50,7 +50,7 @@ If you are upgrading from sidechain-1, please make sure that your validator pubk
 
    ```sh
    commit: ebf5e00c2fcf6f8d2fc1f831979f10cda2113a7a
-   cosmos_sdk_version: v0.50.12
+   cosmos_sdk_version: v0.50.14
    go: go version go1.23.0 linux/amd64
    name: bitway
    server_name: bitwayd
