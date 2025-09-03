@@ -3,7 +3,7 @@
 
 ## We plan to launch the upgraded mainnet at the following time:
 
-Thursday, September 4, 2025, 15:00 UTC.
+Thursday, September 8, 2025, 15:00 UTC.
 
 ## The upgrade contents are as follows:
 
@@ -12,6 +12,6 @@ Thursday, September 4, 2025, 15:00 UTC.
 
 ## Please follow the steps below to complete the upgrade process:
 
- 1. We have provided an pre genesis file, please download it and check your account balance. https://media.githubusercontent.com/media/bitwaylabs/networks/refs/heads/main/mainnet/bitway-1/pre_genesis.tar.gz
+ 1. We have provided an genesis file, please download it and check your account balance. https://github.com/bitwaylabs/networks/raw/main/mainnet/bitway-1/genesis.tar.gz
 
- 2. At least 6 hours before the launch time, we will provide the final genesis file. Please follow the instruction document to start the new chain node. https://github.com/bitwaylabs/networks/blob/main/mainnet/bitway-1/README.md.
+ 2. Please follow the instruction document to start the new chain node. https://github.com/bitwaylabs/networks/blob/main/mainnet/bitway-1/README.md.
