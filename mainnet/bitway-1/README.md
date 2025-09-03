@@ -205,3 +205,27 @@ If you are upgrading from sidechain-1, please make sure that your validator pubk
    ```sh
    bitwayd start
    ```
+
+# Hardware Specifications
+
+## Running the Bitway full node
+
+1. Minimum Requirements
+
+   - CPU: 8 cores
+
+   - RAM: 16 GB
+
+   - Storage: 200 GB
+
+   - Network: 1 Gbps
+
+2. Recommended Specifications
+
+   - CPU: 8 cores
+
+   - RAM: 32 GB
+
+   - Storage: 500 GB
+
+   - Network: 1 Gbps
