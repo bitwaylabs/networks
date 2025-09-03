@@ -3,7 +3,7 @@
 
 ## We plan to launch the upgraded mainnet at the following time:
 
-Thursday, September 8, 2025, 15:00 UTC.
+Monday, September 8, 2025, 15:00 UTC.
 
 ## The upgrade contents are as follows:
 
