@@ -220,6 +220,8 @@ If you are upgrading from sidechain-1, please make sure that your validator pubk
 
    - Network: 1 Gbps
 
+   - SWP: 8GB
+
 2. Recommended Specifications
 
    - CPU: 8 cores
@@ -229,3 +231,5 @@ If you are upgrading from sidechain-1, please make sure that your validator pubk
    - Storage: 500 GB
 
    - Network: 1 Gbps
+
+   - SWP: 8GB
