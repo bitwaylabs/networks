@@ -1,5 +1,5 @@
 *** Important ***  
-If you are upgrading from sidechain-1, please make sure that your priv_validator_key.json has not been changed.
+If you are upgrading from sidechain-1, you need to keep all data in the .shuttler directory intact. This directory contains old dkg data, which is very important. Please do not lose or overwrite it.
 
 # TSSigner
 
