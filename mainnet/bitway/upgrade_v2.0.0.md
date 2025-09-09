@@ -3,7 +3,7 @@
 
 ## Notice
 
-Because our bitway-1 chain forked at the first block, we tried to restore the chain, but it was very difficult. So we decided to stop bitway-1 and restart a new chain.  
+Because our bitway-1 chain forked at the first block, we tried to restore the chain, but it was very difficult. So we decided to stop bitway-1 and restart a new chain with chainId 'bitway'.  
 Please follow the steps below:  
 
  1. Stop the chain bitway-1.
