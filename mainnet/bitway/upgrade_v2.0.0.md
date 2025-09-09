@@ -7,7 +7,7 @@ Because our bitway-1 chain forked at the first block, we tried to restore the ch
 Please follow the steps below:  
 
  1. Stop the chain bitway-1.
- 2. Re-download the genesis.json file.
+ 2. Re-download the genesis.json file with chainId 'bitway'.
  3. Reset the node and restart it.
 
 ## Links
