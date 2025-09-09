@@ -2,7 +2,7 @@
 
 If you are upgrading from sidechain-1, please make sure that your validator pubkey does not change and just use the old priv_validator_key.json file to run the Bitway node.
 
-# Mainnet: bitway-1
+# Mainnet: bitway
 
 ## Get Started
 
@@ -87,10 +87,8 @@ If you are upgrading from sidechain-1, please make sure that your validator pubk
 3. Download the genesis file:
 
    ```sh
-   wget https://github.com/bitwaylabs/networks/raw/main/mainnet/bitway-1/genesis.tar.gz -O ~/.bitway/config/genesis.tar.gz
+   wget https://github.com/bitwaylabs/networks/raw/main/mainnet/bitway/genesis.tar.gz -O ~/.bitway/config/genesis.tar.gz
    ```
-
-   > This genesis file will be completed before the official launch of the bitway-1 network.
 
 4. Unzip the genesis file
 
@@ -108,7 +106,7 @@ If you are upgrading from sidechain-1, please make sure that your validator pubk
    Expected output:
 
    ```sh
-   2fc783fd26301f6c127514ab4e91e25105a98d6725f9122accaf42962b705359 genesis.json   
+    genesis.json   
    ```
 
 6. Set up the persistent peers in config.toml:
@@ -189,7 +187,7 @@ If you are upgrading from sidechain-1, please make sure that your validator pubk
    Create validator with the specified path:
 
    ```sh
-   bitwayd tx staking create-validator <path/to/validator.json> --from <KEY_NAME> --chain-id bitway-1 --fees 1000ubtw
+   bitwayd tx staking create-validator <path/to/validator.json> --from <KEY_NAME> --chain-id bitway --fees 1000ubtw
    ```
 
 ### Inherited validator from sidechain-1
