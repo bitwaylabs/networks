@@ -106,7 +106,7 @@ If you are upgrading from sidechain-1, please make sure that your validator pubk
    Expected output:
 
    ```sh
-    genesis.json   
+   b2d61a5c393326dc193d11a6d9c4048e062002d342a7f43f1c924e060a484fb4 genesis.json   
    ```
 
 6. Set up the persistent peers in config.toml:
