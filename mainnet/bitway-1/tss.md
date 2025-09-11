@@ -80,13 +80,15 @@ cp target/release/shuttler ~/.cargo/bin
 
 If you are upgrading from sidechain-1, please follow the steps below:
 
-1. Reuse the old data directory
+1. Reuse the old data directory  
+
+   By default, it is "~/.shuttler".  
+   This directory contains old dkg data, which is very important. Please do not lose or overwrite it.  
+   To be on the safe side, back up the original directory before performing the operation.
 
    ```sh
-   By default, it is "~/.shuttler".
+   cp -r ~/.shuttler ~/.shttler_backup
    ```
-
-   > This directory contains old dkg data, which is very important. Please do not lose or overwrite it.
 
 2. Generate a new configuration file
 
